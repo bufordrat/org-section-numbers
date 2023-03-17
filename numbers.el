@@ -16,10 +16,14 @@
 	(goto-char beg)
 	;; TODO use org regexp
 	(while (re-search-forward (rx bol (+ "*")) end t)
-	  (if (< (length (match-string 0)) (length num))
-	      (progn
-		(pop num)
-		(cl-incf (car num)))
-	    (push n num))
+	  (let ((level (length (match-string 0))))
+            (if (< level (length num))
+	        (progn
+		  (dotimes (_ (- (length num) level))
+                    (pop num))
+		  (cl-incf (car num)))
+	      (if (= level (length num))
+                  (cl-incf (car num))
+                (push n num))))
 	  (insert " " (string-join (reverse (mapcar #'number-to-string num)) ".")))
 	num))))

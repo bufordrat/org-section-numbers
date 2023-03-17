@@ -1,0 +1,4 @@
+* Acknowledgments
+
+This awesome Elisp function is in =bufordrat='s repository, but please
+note that it was in fact written by Keith Waclena.
